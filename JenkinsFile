@@ -1,0 +1,85 @@
+pipeline {
+    agent any
+    stages {
+        stage("Hello") {
+            steps {
+                sh 'pwd'
+                sh 'whoami'
+            }
+        }
+        /* stage("Checkout") {
+            steps {
+                script {
+                    sh "git clone https://github.com/dooyounglee/item1.git"
+                }
+            }
+        } */
+        stage("Pull") {
+            steps {
+                dir ('item1') {
+                    sh "git pull origin master"
+                }
+            }
+        }
+        stage("Permission") {
+            steps {
+                dir ('item1') {
+                    sh 'chmod u+x mvnw'
+                }
+            }
+        }
+        stage("Clean") {
+            steps {
+                dir ('item1') {
+                    sh './mvnw clean'
+                }
+            }
+        }
+        stage("Build") {
+            steps {
+                dir ('item1') {
+                    sh './mvnw package -DskipTests'
+                }
+            }
+        }
+        stage("Server start") {
+            steps {
+                dir ('item1') {
+                    // sh 'java -jar target/*.jar'
+                    sh '''
+                        #!/bin/bash
+                        set -e
+                        
+                        if [ -f app.pid ]; then
+                            PID=$(cat app.pid)
+                            if kill -0 $PID 2>/dev/null; then
+                                echo "기존 프로세스 종료: PID $PID"
+                                kill $PID
+                            else
+                                echo "기존 PID $PID 프로세스 없음"
+                            fi
+                            rm app.pid
+                        fi
+
+                        # 백그라운드로 서버 실행
+                        nohup java -jar target/*.jar > app.log 2>&1 & echo $! > app.pid
+        
+                        # 서버 기동 확인 (포트나 로그 기준 등으로)
+                        echo "서버 기동 대기 중..."
+                        for i in $(seq 1 15); do
+                            echo "서버 기동 확인 시도 $i/15"
+                            sleep 2
+                            if curl -s -f http://localhost:8081/actuator/health | grep -q '"status":"UP"'; then
+                                echo "서버 기동 성공"
+                                exit 0
+                            fi
+                        done
+
+                        echo "서버 기동 실패"
+                        exit 1
+                    '''
+                }
+            }
+        }
+    }
+}
