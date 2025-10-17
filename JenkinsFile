@@ -1,51 +1,87 @@
 pipeline {
     agent any
+
+    environment {
+        REPO_DIR = "bts_repo_ex"
+        API_URL = "http://192.168.2.141:8088/bts/jenkins/getCommits"
+    }
+
     stages {
-        stage("Hello") {
+        stage("Init") {
             steps {
-                sh 'pwd'
-                sh 'whoami'
+                sh '''
+                    if [ ! -d "${REPO_DIR}/.git" ]; then
+                        echo "⚠️ Git 저장소 없음 — 새로 clone 합니다."
+                        git clone https://github.com/lsb06111/bts_repo_ex.git
+                    else
+                        echo "✅ 기존 저장소 존재"
+                    fi
+                '''
             }
         }
-        /* stage("Checkout") {
+
+        stage("Selective Pull") {
             steps {
-                script {
-                    sh "git clone https://github.com/dooyounglee/item1.git"
-                }
-            }
-        } */
-        stage("Pull") {
-            steps {
-                dir ('item1') {
-                    sh "git pull origin master"
+                dir("${REPO_DIR}") {
+                    sh '''
+                        echo "📡 커밋 정보 API 호출 중..."
+                        curl -s ${API_URL} -o commits.json
+
+                        echo "📁 커밋 파일 목록:"
+                        cat commits.json
+
+                        git fetch origin main
+
+                        # jq 사용: 각 커밋의 sha, fileName 추출
+                        jq -c '.[]' commits.json | while read -r item; do
+                            SHA=$(echo $item | jq -r '.sha')
+                            FILE=$(echo $item | jq -r '.fileName')
+
+                            echo "=============================================="
+                            echo "SHA: $SHA"
+                            echo "File: $FILE"
+                            echo "----------------------------------------------"
+
+                            # 파일이 존재하는 커밋인지 확인
+                            if git cat-file -e ${SHA} 2>/dev/null; then
+                                echo "✅ 커밋 존재 — 해당 파일 checkout"
+                                git checkout ${SHA} -- "${FILE}"
+                            else
+                                echo "⚠️ 커밋 ${SHA} 존재하지 않음 — 스킵"
+                            fi
+                        done
+                    '''
                 }
             }
         }
+
         stage("Permission") {
             steps {
-                dir ('item1') {
+                dir("${REPO_DIR}") {
                     sh 'chmod u+x mvnw'
                 }
             }
         }
+
         stage("Clean") {
             steps {
-                dir ('item1') {
+                dir("${REPO_DIR}") {
                     sh './mvnw clean'
                 }
             }
         }
+
         stage("Build") {
             steps {
-                dir ('item1') {
+                dir("${REPO_DIR}") {
                     sh './mvnw package -DskipTests'
                 }
             }
         }
+
         stage("Server start") {
             steps {
-                dir ('item1') {
-                    // sh 'java -jar target/*.jar'
+                dir("${REPO_DIR}") {
                     sh '''
                         #!/bin/bash
                         set -e
@@ -55,27 +91,21 @@ pipeline {
                             if kill -0 $PID 2>/dev/null; then
                                 echo "기존 프로세스 종료: PID $PID"
                                 kill $PID
-                            else
-                                echo "기존 PID $PID 프로세스 없음"
                             fi
                             rm app.pid
                         fi
 
-                        # 백그라운드로 서버 실행
                         nohup java -jar target/*.jar > app.log 2>&1 & echo $! > app.pid
-        
-                        # 서버 기동 확인 (포트나 로그 기준 등으로)
+
                         echo "서버 기동 대기 중..."
                         for i in $(seq 1 15); do
-                            echo "서버 기동 확인 시도 $i/15"
                             sleep 2
                             if curl -s -f http://localhost:8081/actuator/health | grep -q '"status":"UP"'; then
-                                echo "서버 기동 성공"
+                                echo "✅ 서버 기동 성공"
                                 exit 0
                             fi
                         done
-
-                        echo "서버 기동 실패"
+                        echo "❌ 서버 기동 실패"
                         exit 1
                     '''
                 }
