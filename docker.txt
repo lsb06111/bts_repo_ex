@@ -5,3 +5,10 @@ docker run -d -p 9000:8080 -p 9001:8081 \
   --name jenkins6 \
   -e JAVA_OPTS="-Dhudson.util.ProcessTreeKiller.disable=true" \
   jenkins/jenkins:2.530-jdk17
+
+
+docker run -d -p 9000:8080 -p 9001:8081 \
+  -v /Users/soobs/jenkins/jenkins_home6:/var/jenkins_home \
+  --name jenkins6 \
+  -e JAVA_OPTS="-Dhudson.util.ProcessTreeKiller.disable=true" \
+  jenkins/jenkins:2.530-jdk17
