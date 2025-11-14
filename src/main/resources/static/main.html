@@ -1,8 +1,325 @@
-<html>
-    <head>
-        <meta charset="UTF-8">
-    </head>
-    <body>
-        파일 테스트 해보죵죵죵죵죵ㅈㅇ
-    </body>
+<!DOCTYPE html>
+<html lang="ko" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OTI &amp; EXAINT - 통합 IT 서비스</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <script>
+        // Tailwind 커스텀 설정
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Inter', 'Noto Sans KR', 'sans-serif'],
+                    },
+                    colors: {
+                        // 메인 브랜드 컬러 (활기찬 파란색)
+                        brandBlue: {
+                            '50': '#eff8ff',
+                            '100': '#dff0ff',
+                            '200': '#bde3ff',
+                            '300': '#8dceff',
+                            '400': '#5ab8ff',
+                            '500': '#369eff',
+                            '600': '#1b81ff',
+                            '700': '#106aff',
+                            '800': '#1155cf',
+                            '900': '#134ba3',
+                            '950': '#0f2f6a',
+                        },
+                        // 세련된 다크모드 배경색
+                        darkBlue: {
+                            '900': '#0F172A', // Slate 900
+                            '800': '#1E293B', // Slate 800
+                            '700': '#334155', // Slate 700
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* 부드러운 스크롤을 위한 기본 설정 */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body class="bg-darkBlue-900 text-slate-200 font-sans leading-relaxed">
+
+    <!-- 
+      =================================
+      헤더 (Header)
+      =================================
+      - 스크롤 시 상단에 고정 (sticky)
+      - 배경에 블러 효과 (glassmorphism)
+    -->
+    <header class="sticky top-0 z-50 w-full backdrop-blur-md bg-darkBlue-900/80 border-b border-darkBlue-700 shadow-sm">
+        <div class="container mx-auto max-w-6xl px-4">
+            <nav class="flex justify-between items-center h-16">
+                <!-- 로고: OTI (메인) -->
+                <a href="#home" class="text-2xl font-bold text-white">
+                    OTI <span class="text-brandBlue-500">.</span>
+                </a>
+                
+                <!-- 네비게이션 메뉴 (데스크탑) -->
+                <div class="hidden md:flex space-x-6">
+                    <a href="#home" class="text-slate-300 hover:text-brandBlue-400 transition duration-300">홈</a>
+                    <a href="#about-oti" class="text-slate-300 hover:text-brandBlue-400 transition duration-300">OTI 소개</a>
+                    <a href="#about-exaint" class="text-slate-300 hover:text-brandBlue-400 transition duration-300">EXAINT 소개</a>
+                    <a href="#solutions" class="text-slate-300 hover:text-brandBlue-400 transition duration-300">통합 솔루션</a>
+                    <a href="#contact" class="text-slate-300 hover:text-brandBlue-400 transition duration-300">문의하기</a>
+                </div>
+                
+                <!-- CTA 버튼 -->
+                <a href="#contact" class="hidden md:inline-block bg-brandBlue-600 text-white px-5 py-2 rounded-lg text-sm font-medium hover:bg-brandBlue-700 transition duration-300 shadow-lg shadow-brandBlue-900/50">
+                    프로젝트 문의
+                </a>
+
+                <!-- 모바일 메뉴 버튼 (간단한 토글 기능은 JS가 필요하므로 데모에서는 생략) -->
+                <div class="md:hidden">
+                    <button class="text-slate-200">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                        </svg>
+                    </button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 
+      =================================
+      메인 컨텐츠
+      =================================
+    -->
+    <main>
+
+        <!-- 
+          =================================
+          1. 히어로 섹션 (Hero)
+          =================================
+        -->
+        <section id="home" class="relative py-24 md:py-40 flex items-center justify-center overflow-hidden">
+            <!-- 배경 그라디언트 효과 -->
+            <div class="absolute inset-0 -z-10">
+                <div class="absolute top-0 left-1/4 w-96 h-96 bg-brandBlue-900/50 rounded-full filter blur-3xl opacity-30 animate-pulse"></div>
+                <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-indigo-900/50 rounded-full filter blur-3xl opacity-30 animate-pulse" style="animation-delay: 2s;"></div>
+            </div>
+            
+            <div class="container mx-auto max-w-6xl px-4 text-center">
+                <h1 class="text-4xl md:text-6xl font-extrabold text-white mb-6 leading-tight">
+                    신뢰할 수 있는 IT의 미래,
+                    <span class="block bg-clip-text text-transparent bg-gradient-to-r from-brandBlue-400 to-indigo-400 mt-2">
+                        OTI & EXAINT가 만듭니다
+                    </span>
+                </h1>
+                <p class="text-lg md:text-xl text-slate-300 max-w-3xl mx-auto mb-10">
+                    오티아이(OTI)의 검증된 시스템 통합(SI) 및 유지보수(SM) 역량과 엑사아이엔티(EXAINT)의 전문성이 만나,
+                    공공 및 기업을 위한 최적의 IT 서비스를 제공합니다.
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    
+                    <a href="#contact" class="bg-darkBlue-800 text-slate-200 px-8 py-3 rounded-lg text-lg font-semibold hover:bg-darkBlue-700 transition duration-300 border border-darkBlue-700">
+                        문의하기
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 
+          =================================
+          2. OTI 소개 섹션
+          =================================
+        -->
+        <section id="about-oti" class="py-20 md:py-28 bg-darkBlue-800/50">
+            <div class="container mx-auto max-w-6xl px-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center">
+                    <!-- 소개 텍스트 -->
+                    <div>
+                        <span class="text-brandBlue-400 font-semibold text-sm">COMPANY</span>
+                        <h2 class="text-3xl md:text-4xl font-bold text-white mt-2 mb-6">
+                            오티아이 (OTI)
+                        </h2>
+                        <p class="text-slate-300 text-lg mb-4">
+                            오티아이는 <b>주요 공공기관을 위한 정보시스템 구축(SI) 및 통합유지보수(SM)</b> 전문 기업입니다.
+                        </p>
+                        <p class="text-slate-400 mb-6">
+                            맞춤형 시스템 개발, ICT 인프라 구축, ISP 컨설팅부터 IT 아웃소싱(ITO)까지, 고객의 비즈니스 전반에 걸쳐 안정적이고 최적화된 <b>엔드투엔드(End-to-End) IT 서비스</b>를 제공합니다.
+                        </p>
+                        <a href="https://opentop.co.kr/" target="_blank" rel="noopener noreferrer" class="text-brandBlue-400 font-semibold inline-flex items-center group">
+                            OTI 공식 웹사이트 방문하기
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />
+                            </svg>
+                        </a>
+                    </div>
+                    
+                    <!-- 이미지 플레이스홀더 -->
+                    <div class="flex justify-center items-center bg-darkBlue-900 rounded-xl shadow-2xl p-8 h-80 md:h-96">
+                        <img src="https://opentop.co.kr/images/header_logo.png" alt="OTI 로고" class="rounded-lg bg-white p-6 object-contain max-h-32 md:max-h-40"
+                             onerror="this.onerror=null; this.src='https://placehold.co/200x100/FFFFFF/0F172A?text=OTI+Logo';">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 
+          =================================
+          3. EXAINT 소개 섹션
+          =================================
+        -->
+        <section id="about-exaint" class="py-20 md:py-28">
+            <div class="container mx-auto max-w-6xl px-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center">
+                    <!-- 이미지 플레이스홀더 (순서 변경) -->
+                    <div class="flex justify-center items-center bg-darkBlue-800 rounded-xl shadow-2xl p-8 h-80 md:h-96 order-1 md:order-none">
+                         <img src="http://www.exaint.co.kr/images/logo.png" alt="ExaINT 로고" class="rounded-lg bg-white p-6 object-contain max-h-32 md:max-h-40"
+                              onerror="this.onerror=null; this.src='https://placehold.co/200x100/FFFFFF/0F172A?text=ExaINT+Logo';">
+                    </div>
+                    
+                    <!-- 소개 텍스트 -->
+                    <div>
+                        <span class="text-indigo-400 font-semibold text-sm">COMPANY</span>
+                        <h2 class="text-3xl md:text-4xl font-bold text-white mt-2 mb-6">
+                            엑사아이엔티 (EXAINT)
+                        </h2>
+                        <p class="text-slate-300 text-lg mb-4">
+                            엑사아이엔티는 <b>시스템 통합(SI) 및 통합유지보수(SM)</b> 분야에서 축적된 기술력을 제공하는 IT 서비스 전문 기업입니다.
+                        </p>
+                        <p class="text-slate-400 mb-6">
+                            특히 공공 부문 정보화 전략(ISP) 및 ICT 개발 분야에서 OTI와의 긴밀한 협력을 통해, 고객에게 더욱 신뢰할 수 있는 기술 시너지를 창출합니다.
+                        </p>
+                        <a href="http://www.exaint.co.kr/" target="_blank" rel="noopener noreferrer" class="text-indigo-400 font-semibold inline-flex items-center group">
+                            EXAINT 공식 웹사이트 방문하기
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 
+          =================================
+          4. 통합 솔루션 섹션
+          =================================
+        -->
+        <section id="solutions" class="py-20 md:py-28 bg-darkBlue-800/50">
+            <div class="container mx-auto max-w-6xl px-4">
+                <!-- 섹션 헤더 -->
+                <div class="text-center max-w-2xl mx-auto mb-16">
+                    <span class="text-brandBlue-400 font-semibold text-sm">OUR SYNERGY</span>
+                    <h2 class="text-3xl md:text-4xl font-bold text-white mt-2 mb-4">
+                        OTI & EXAINT 통합 서비스
+                    </h2>
+                    <p class="text-lg text-slate-300">
+                        두 회사의 검증된 전문성으로 SI, SM, ICT 전 영역에 걸친 통합 서비스를 제공합니다.
+                    </p>
+                </div>
+
+                <!-- 솔루션 카드 그리드 -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    
+                    <!-- 카드 1: 시스템 통합 (SI) -->
+                    <div class="bg-darkBlue-800 p-8 rounded-xl shadow-xl border border-darkBlue-700 hover:border-brandBlue-700 hover:shadow-brandBlue-900/50 transition-all duration-300 transform hover:-translate-y-1">
+                        <!-- 아이콘 -->
+                        <div class="w-12 h-12 bg-brandBlue-600/20 text-brandBlue-400 rounded-lg flex items-center justify-center mb-5">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 7.5l3 2.25-3 2.25m4.5 0h3m-9 8.25h13.5A2.25 2.25 0 0021 18V6a2.25 2.25 0 00-2.25-2.25H5.25A2.25 2.25 0 003 6v12a2.25 2.25 0 002.25 2.25z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-semibold text-white mb-3">시스템 통합 (SI)</h3>
+                        <p class="text-slate-400">
+                            주요 공공기관의 정보시스템 구축 계획(ISP)부터 응용 SW 개발, ICT 인프라 구축, 패키지 기반 시스템 구축까지 최적화된 통합 시스템을 제공합니다.
+                        </p>
+                    </div>
+
+                    <!-- 카드 2: 통합 유지보수 (SM) -->
+                    <div class="bg-darkBlue-800 p-8 rounded-xl shadow-xl border border-darkBlue-700 hover:border-brandBlue-700 hover:shadow-brandBlue-900/50 transition-all duration-300 transform hover:-translate-y-1">
+                        <!-- 아이콘 -->
+                        <div class="w-12 h-12 bg-brandBlue-600/20 text-brandBlue-400 rounded-lg flex items-center justify-center mb-5">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 17.25v-.228a4.5 4.5 0 00-.12-1.03l-2.268-9.64a3.375 3.375 0 00-3.285-2.82H7.923a3.375 3.375 0 00-3.285 2.82l-2.268 9.64a4.5 4.5 0 00-.12 1.03v.228m19.5 0a3 3 0 01-3 3H5.25a3 3 0 01-3-3m19.5 0a3 3 0 00-3-3H5.25a3 3 0 00-3 3m16.5 0h.008v.008h-.008v-.008z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-semibold text-white mb-3">통합 유지보수 (SM)</h3>
+                        <p class="text-slate-400">
+                            시스템 성능, 장애, 데이터 백업, HW/SW 및 어플리케이션 운영을 포괄하는 맞춤형 유지관리 서비스와 IT 아웃소싱(ITO)을 지원합니다.
+                        </p>
+                    </div>
+
+                    <!-- 카드 3: ICT 개발 및 컨설팅 -->
+                    <div class="bg-darkBlue-800 p-8 rounded-xl shadow-xl border border-darkBlue-700 hover:border-brandBlue-700 hover:shadow-brandBlue-900/50 transition-all duration-300 transform hover:-translate-y-1">
+                        <!-- 아이콘 -->
+                        <div class="w-12 h-12 bg-brandBlue-600/20 text-brandBlue-400 rounded-lg flex items-center justify-center mb-5">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 3v1.5M4.5 8.25H3m18 0h-1.5M4.5 12H3m18 0h-1.5m-15 3.75H3m18 0h-1.5M8.25 19.5V21M12 3v1.5m0 15V21m3.75-18v1.5m0 15V21m-7.5-1.5h1.5m-1.5-6h1.5m1.5-6h1.5m1.5 6h1.5m-1.5 6h1.5m-6-1.5h1.5m-1.5-6h1.5m1.5-6h1.5m1.5 6h1.5m-1.5 6h1.5" />
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-semibold text-white mb-3">ICT 개발 및 컨설팅</h3>
+                        <p class="text-slate-400">
+                            정보와 통신 기술을 활용하여 하드웨어 도입, 전산 인프라 구축, 소프트웨어 커스터마이징, 시스템 아키텍처 설계 및 ISP 컨설팅을 제공합니다.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 
+          =================================
+          5. 문의하기 (Contact)
+          =================================
+        -->
+        <section id="contact" class="py-20 md:py-32">
+            <div class="container mx-auto max-w-3xl px-4 text-center">
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
+                    IT 혁신을 위한 첫걸음,
+                    <br>
+                    지금 바로 OTI & ExaINT와 상의하세요.
+                </h2>
+                <p class="text-lg text-slate-300 mb-10">
+                    귀사의 비즈니스에 최적화된 IT 시스템 구축 및 운영이 궁금하신가요?
+                    <br>
+                    전문가 팀이 맞춤형 상담을 제공해 드립니다.
+                </p>
+                <a href="mailto:sales@oti.co.kr" class="bg-brandBlue-600 text-white px-10 py-4 rounded-lg text-lg font-semibold hover:bg-brandBlue-700 transition duration-300 shadow-lg shadow-brandBlue-900/60">
+                    이메일로 문의하기 (sales@oti.co.kr)
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- 
+      =================================
+      푸터 (Footer)
+      =================================
+    -->
+    <footer class="border-t border-darkBlue-700 bg-darkBlue-900">
+        <div class="container mx-auto max-w-6xl px-4 py-8">
+            <div class="flex flex-col md:flex-row justify-between items-center text-center md:text-left">
+                <div class="mb-4 md:mb-0">
+                    <p class="text-slate-400">
+                        &copy; 2025 OTI &amp; EXAINT.
+                    </p>
+                    <p class="text-sm text-slate-500">All rights reserved. This is a demo website.</p>
+                </div>
+                <div class="flex space-x-6">
+                    <a href="https://opentop.co.kr/" target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-brandBlue-400 transition-colors">OTI</a>
+                    <a href="http://www.exaint.co.kr/" target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-brandBlue-400 transition-colors">EXAINT</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
 </html>
