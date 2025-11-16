@@ -1,11 +1,402 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document2</title>
+  <meta charset="UTF-8" />
+  <title>프로젝트 기술 스택</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #eef1f8;
+      padding: 40px 0;
+      color: #111827;
+    }
+
+    .wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 28px 32px 30px;
+      border-radius: 18px;
+      background: #ffffff;
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.12);
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .title-area h1 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #111827;
+      margin-bottom: 4px;
+    }
+
+    .title-area p {
+      font-size: 0.9rem;
+      color: #6b7280;
+    }
+
+    .badge-main {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: #e8ecff;
+      color: #4a5eff;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+
+    .badge-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: #4a5eff;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 22px;
+    }
+
+    /* 공통 카드 */
+    .card {
+      background: #f9fafb;
+      border-radius: 14px;
+      padding: 16px 18px 18px;
+      border: 1px solid #e5e7eb;
+    }
+
+    .card + .card {
+      margin-top: 10px;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .card-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #111827;
+    }
+
+    .card-title-pill {
+      width: 22px;
+      height: 22px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .pill-ui { background: linear-gradient(135deg, #4a5eff, #818cf8); }
+    .pill-app { background: linear-gradient(135deg, #059669, #22c55e); }
+    .pill-db  { background: linear-gradient(135deg, #0ea5e9, #38bdf8); }
+
+    .card-sub {
+      font-size: 0.78rem;
+      color: #9ca3af;
+    }
+
+    .row-label-value {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      column-gap: 10px;
+      row-gap: 6px;
+      margin-top: 6px;
+    }
+
+    .label {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: #6b7280;
+      text-align: right;
+      padding-top: 4px;
+    }
+
+    .value-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 8px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      background: #eef2ff;
+      color: #4f46e5;
+      border: 1px solid rgba(79, 70, 229, 0.12);
+      white-space: nowrap;
+    }
+
+    .tag-soft {
+      background: #ecfdf3;
+      color: #16a34a;
+      border-color: rgba(22, 163, 74, 0.14);
+    }
+    .tag-neutral {
+      background: #f3f4f6;
+      color: #4b5563;
+      border-color: rgba(156, 163, 175, 0.25);
+    }
+    .tag-accent {
+      background: #eef9ff;
+      color: #0284c7;
+      border-color: rgba(56, 189, 248, 0.2);
+    }
+
+    .tag-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      margin-right: 4px;
+      flex-shrink: 0;
+    }
+
+    .dot-front   { background:#4f46e5; }
+    .dot-back    { background:#16a34a; }
+    .dot-db      { background:#0ea5e9; }
+    .dot-tools   { background:#f97316; }
+    .dot-collab  { background:#8b5cf6; }
+
+    /* 오른쪽 카드 스타일 */
+    .stack-card {
+      margin-bottom: 10px;
+    }
+
+    .stack-card .row-label-value {
+      grid-template-columns: 90px 1fr;
+    }
+
+    .note {
+      margin-top: 10px;
+      font-size: 0.75rem;
+      color: #9ca3af;
+    }
+
+    @media (max-width: 900px) {
+      .wrap {
+        margin: 0 12px;
+        padding: 22px 18px 24px;
+      }
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
 <body>
-    
+  <div class="wrap">
+
+    <!-- 상단 헤더 -->
+    <div class="header">
+      <div class="title-area">
+        <h1>프로젝트 기술 스택</h1>
+        <p>3-Layer 아키텍처 기반 웹 서비스 · 배포/승인 관리 시스템</p>
+      </div>
+      <div class="badge-main">
+        <span class="badge-dot"></span>
+        OTIEXA · BTS Deployment
+      </div>
+    </div>
+
+    <div class="grid">
+      <!-- 왼쪽: 레이어 구조 -->
+      <div>
+
+        <!-- UI/UX Layer -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">
+              <span class="card-title-pill pill-ui">UI</span>
+              <span>UI / UX Layer</span>
+            </div>
+            <span class="card-sub">View · Interaction</span>
+          </div>
+
+          <div class="row-label-value">
+            <div class="label">View</div>
+            <div class="value-tags">
+              <span class="tag">
+                <span class="tag-dot dot-front"></span>JSP
+              </span>
+            </div>
+
+            <div class="label">Library</div>
+            <div class="value-tags">
+              <span class="tag"><span class="tag-dot dot-front"></span>jQuery</span>
+              <span class="tag"><span class="tag-dot dot-front"></span>Bootstrap 5</span>
+            </div>
+
+            <div class="label">Language</div>
+            <div class="value-tags">
+              <span class="tag tag-neutral">HTML5</span>
+              <span class="tag tag-neutral">JavaScript</span>
+              <span class="tag tag-neutral">CSS3</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Application Layer -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">
+              <span class="card-title-pill pill-app">AP</span>
+              <span>Application Layer</span>
+            </div>
+            <span class="card-sub">Business Logic · Server</span>
+          </div>
+
+          <div class="row-label-value">
+            <div class="label">Framework</div>
+            <div class="value-tags">
+              <span class="tag tag-soft">
+                <span class="tag-dot dot-back"></span>Spring
+              </span>
+            </div>
+
+            <div class="label">Language</div>
+            <div class="value-tags">
+              <span class="tag tag-neutral">Java 1.8</span>
+            </div>
+
+            <div class="label">Server</div>
+            <div class="value-tags">
+              <span class="tag tag-neutral">Tomcat 9.0</span>
+            </div>
+
+            <div class="label">Library</div>
+            <div class="value-tags">
+              <span class="tag tag-soft">Lombok</span>
+            </div>
+
+            <div class="label">SQL Mapper</div>
+            <div class="value-tags">
+              <span class="tag tag-soft">MyBatis</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Database Layer -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">
+              <span class="card-title-pill pill-db">DB</span>
+              <span>Database Layer</span>
+            </div>
+            <span class="card-sub">Persistence · Modeling</span>
+          </div>
+
+          <div class="row-label-value">
+            <div class="label">Database</div>
+            <div class="value-tags">
+              <span class="tag">
+                <span class="tag-dot dot-db"></span>Oracle 21c
+              </span>
+            </div>
+
+            <div class="label">Modeling</div>
+            <div class="value-tags">
+              <span class="tag tag-accent">SQL Developer</span>
+              <span class="tag tag-accent">ERD Cloud</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- 오른쪽: 환경 & 협업 -->
+      <div>
+
+        <!-- 개발 환경 -->
+        <div class="card stack-card">
+          <div class="card-header">
+            <div class="card-title">
+              <span class="card-title-pill pill-app" style="background:linear-gradient(135deg,#6366f1,#a855f7);">ENV</span>
+              <span>개발 환경</span>
+            </div>
+          </div>
+
+          <div class="row-label-value">
+            <div class="label">IDE</div>
+            <div class="value-tags">
+              <span class="tag tag-neutral">
+                <span class="tag-dot dot-tools"></span>Eclipse
+              </span>
+            </div>
+
+            <div class="label">형상관리</div>
+            <div class="value-tags">
+              <span class="tag tag-neutral">
+                <span class="tag-dot dot-tools"></span>GitHub
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 협업툴 -->
+        <div class="card stack-card">
+          <div class="card-header">
+            <div class="card-title">
+              <span class="card-title-pill pill-ui" style="background:linear-gradient(135deg,#ec4899,#8b5cf6);">COL</span>
+              <span>협업 도구</span>
+            </div>
+          </div>
+
+          <div class="row-label-value">
+            <div class="label">Tools</div>
+            <div class="value-tags">
+              <span class="tag">
+                <span class="tag-dot dot-collab"></span>Slack
+              </span>
+              <span class="tag">
+                <span class="tag-dot dot-collab"></span>Notion
+              </span>
+              <span class="tag">
+                <span class="tag-dot dot-collab"></span>Google Drive
+              </span>
+              <span class="tag">
+                <span class="tag-dot dot-collab"></span>Visily
+              </span>
+              <span class="tag">
+                <span class="tag-dot dot-collab"></span>카카오톡
+              </span>
+            </div>
+          </div>
+
+          <div class="note">
+            ※ UI·백엔드·DB·협업까지 실무 환경과 유사한 풀스택 구성을 적용했습니다.
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
 </body>
 </html>
